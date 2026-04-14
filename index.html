@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Made on Notion — Chemistry & Physics Tutoring</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    /* ─── Reset & Base ─── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --black: #191919;
+      --gray-dark: #37352f;
+      --gray: #6b7280;
+      --gray-light: #9ca3af;
+      --border: #e5e7eb;
+      --bg: #ffffff;
+      --bg-soft: #f9f9f8;
+      --bg-card: #f3f2ee;
+      --accent-chem: #2d6be4;
+      --accent-phys: #e85d00;
+      --accent-chem-light: #dbeafe;
+      --accent-phys-light: #fff0e6;
+      --green: #0f7b55;
+      --green-light: #d3f4e5;
+      --radius: 10px;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.07), 0 1px 2px rgba(0,0,0,0.05);
+      --shadow-md: 0 4px 16px rgba(0,0,0,0.09);
+      --shadow-lg: 0 12px 40px rgba(0,0,0,0.12);
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', 'Sarabun', sans-serif;
+      background: var(--bg);
+      color: var(--gray-dark);
+      line-height: 1.7;
+      font-size: 16px;
+    }
+    h1,h2,h3,h4 { color: var(--black); font-weight: 700; line-height: 1.3; }
+    p { color: var(--gray); }
+    a { text-decoration: none; color: inherit; }
+    img { display: block; max-width: 100%; }
+    section { padding: 96px 0; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+    .tag {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 999px;
+      margin-bottom: 16px;
+    }
+    .tag--blue { background: var(--accent-chem-light); color: var(--accent-chem); }
+    .tag--orange { background: var(--accent-phys-light); color: var(--accent-phys); }
+    .tag--green { background: var(--green-light); color: var(--green); }
+    .tag--gray { background: var(--bg-card); color: var(--gray); }
+    .section-label {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--gray-light);
+      margin-bottom: 12px;
+    }
+    .divider {
+      width: 40px; height: 3px;
+      background: var(--black);
+      border-radius: 2px;
+      margin: 16px 0 32px;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 24px;
+      border-radius: var(--radius);
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all .2s ease;
+      border: 2px solid transparent;
+    }
+    .btn-primary {
+      background: var(--black);
+      color: #fff;
+    }
+    .btn-primary:hover { background: #333; transform: translateY(-1px); box-shadow: var(--shadow-md); }
+    .btn-outline {
+      background: transparent;
+      color: var(--black);
+      border-color: var(--border);
+    }
+    .btn-outline:hover { border-color: var(--black); background: var(--bg-soft); }
+    .btn-chem { background: var(--accent-chem); color: #fff; }
+    .btn-chem:hover { background: #1d56c4; transform: translateY(-1px); box-shadow: var(--shadow-md); }
+    .btn-phys { background: var(--accent-phys); color: #fff; }
+    .btn-phys:hover { background: #c94d00; transform: translateY(-1px); box-shadow: var(--shadow-md); }
+
+    /* ─── Navbar ─── */
+    .navbar {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 24px;
+    }
+    .navbar__inner {
+      max-width: 1100px; margin: 0 auto;
+      height: 64px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .navbar__logo {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 17px; font-weight: 700; color: var(--black);
+    }
+    .navbar__logo-icon {
+      width: 32px; height: 32px;
+      background: var(--black);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-size: 15px;
+    }
+    .navbar__nav {
+      display: flex; align-items: center; gap: 8px;
+      list-style: none;
+    }
+    .navbar__nav a {
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--gray);
+      transition: all .15s;
+    }
+    .navbar__nav a:hover { color: var(--black); background: var(--bg-card); }
+    .navbar__cta { display: flex; gap: 8px; align-items: center; }
+
+    /* ─── Hero ─── */
+    .hero {
+      min-height: 100vh;
+      display: flex; align-items: center;
+      background: var(--bg);
+      padding-top: 64px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 70% 60% at 60% 40%, #dbeafe33 0%, transparent 70%),
+                  radial-gradient(ellipse 50% 50% at 20% 70%, #fff0e620 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .hero__inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+    }
+    .hero__eyebrow {
+      display: flex; align-items: center; gap: 10px;
+      margin-bottom: 20px;
+    }
+    .hero__dot {
+      width: 8px; height: 8px;
+      background: var(--green);
+      border-radius: 50%;
+      box-shadow: 0 0 0 3px var(--green-light);
+    }
+    .hero__eyebrow span {
+      font-size: 13px; font-weight: 600;
+      color: var(--gray);
+      letter-spacing: .05em;
+    }
+    .hero__title {
+      font-size: clamp(36px, 5vw, 60px);
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 20px;
+      color: var(--black);
+    }
+    .hero__title .accent-chem { color: var(--accent-chem); }
+    .hero__title .accent-phys { color: var(--accent-phys); }
+    .hero__subtitle {
+      font-size: 18px;
+      color: var(--gray);
+      margin-bottom: 36px;
+      max-width: 500px;
+    }
+    .hero__actions { display: flex; gap: 12px; flex-wrap: wrap; }
+    .hero__stats {
+      display: flex; gap: 32px;
+      margin-top: 48px;
+      padding-top: 32px;
+      border-top: 1px solid var(--border);
+    }
+    .hero__stat-num {
+      font-size: 28px; font-weight: 800;
+      color: var(--black);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .hero__stat-label { font-size: 13px; color: var(--gray); }
+
+    /* Hero visual */
+    .hero__visual {
+      display: flex; flex-direction: column; gap: 16px;
+      position: relative;
+    }
+    .notion-block {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px 24px;
+      box-shadow: var(--shadow-sm);
+      transition: transform .3s, box-shadow .3s;
+    }
+    .notion-block:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+    .notion-block__header {
+      display: flex; align-items: center; gap: 10px;
+      margin-bottom: 10px;
+    }
+    .notion-block__icon {
+      width: 28px; height: 28px;
+      border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px;
+    }
+    .icon-chem { background: var(--accent-chem-light); }
+    .icon-phys { background: var(--accent-phys-light); }
+    .notion-block__title {
+      font-size: 15px; font-weight: 600;
+      color: var(--black);
+    }
+    .notion-block__subtitle { font-size: 13px; color: var(--gray-light); }
+    .progress-bar {
+      height: 4px; border-radius: 2px;
+      background: var(--border);
+      overflow: hidden;
+      margin-top: 12px;
+    }
+    .progress-fill {
+      height: 100%; border-radius: 2px;
+      transition: width 1s ease;
+    }
+    .fill-chem { background: var(--accent-chem); width: 72%; }
+    .fill-phys { background: var(--accent-phys); width: 58%; }
+    .notion-block__tags {
+      display: flex; gap: 6px; flex-wrap: wrap;
+      margin-top: 10px;
+    }
+    .notion-mini-tag {
+      font-size: 11px; font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 999px;
+      background: var(--bg-card);
+      color: var(--gray);
+    }
+    .notion-floating {
+      position: absolute;
+      right: -20px; top: 10px;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 12px 16px;
+      box-shadow: var(--shadow-md);
+      font-size: 13px;
+      font-weight: 500;
+    }
+    .notion-floating__label { color: var(--gray-light); font-size: 11px; margin-bottom: 2px; }
+    .notion-floating__val { color: var(--green); font-size: 18px; font-weight: 800; }
+
+    /* ─── About ─── */
+    #about { background: var(--bg-soft); }
+    .about__inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 72px;
+      align-items: center;
+    }
+    .about__cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .about-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: var(--shadow-sm);
+      transition: transform .2s;
+    }
+    .about-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+    .about-card__icon {
+      width: 44px; height: 44px;
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px;
+      margin-bottom: 14px;
+    }
+    .about-card h4 { font-size: 15px; margin-bottom: 6px; }
+    .about-card p { font-size: 13px; line-height: 1.6; }
+    .about-card--wide {
+      grid-column: 1 / -1;
+      display: flex; align-items: center; gap: 16px;
+      padding: 20px 24px;
+    }
+
+    /* ─── Courses ─── */
+    #courses { background: #fff; }
+    .courses__grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 24px;
+      margin-top: 48px;
+    }
+    .course-card {
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+      background: #fff;
+      box-shadow: var(--shadow-sm);
+      transition: transform .25s, box-shadow .25s;
+    }
+    .course-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); }
+    .course-card__banner {
+      height: 10px;
+    }
+    .banner-chem { background: linear-gradient(90deg, var(--accent-chem) 0%, #60a5fa 100%); }
+    .banner-phys { background: linear-gradient(90deg, var(--accent-phys) 0%, #f97316 100%); }
+    .course-card__body { padding: 28px; }
+    .course-card__icon {
+      width: 52px; height: 52px;
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 24px;
+      margin-bottom: 16px;
+    }
+    .course-card h3 { font-size: 20px; margin-bottom: 8px; }
+    .course-card .desc { font-size: 14px; margin-bottom: 20px; line-height: 1.7; }
+    .course-topics { list-style: none; margin-bottom: 24px; }
+    .course-topics li {
+      font-size: 14px; color: var(--gray);
+      padding: 6px 0;
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; gap: 8px;
+    }
+    .course-topics li:last-child { border-bottom: none; }
+    .course-topics li::before {
+      content: '✓';
+      width: 18px; height: 18px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 10px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .topic-chem li::before { background: var(--accent-chem-light); color: var(--accent-chem); }
+    .topic-phys li::before { background: var(--accent-phys-light); color: var(--accent-phys); }
+    .course-card__footer {
+      padding: 16px 28px;
+      border-top: 1px solid var(--border);
+      display: flex; justify-content: space-between; align-items: center;
+      background: var(--bg-soft);
+    }
+    .course-card__meta { font-size: 13px; color: var(--gray); }
+    .course-card__meta span { font-weight: 600; color: var(--black); }
+
+    /* ─── Pricing ─── */
+    #pricing { background: var(--bg-soft); }
+    .pricing__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 48px;
+    }
+    .pricing-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 32px;
+      position: relative;
+      transition: transform .25s, box-shadow .25s;
+    }
+    .pricing-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+    .pricing-card--featured {
+      border-color: var(--black);
+      border-width: 2px;
+    }
+    .pricing-card__badge {
+      position: absolute; top: -13px; left: 50%; transform: translateX(-50%);
+      background: var(--black);
+      color: #fff;
+      font-size: 11px; font-weight: 700;
+      letter-spacing: .08em; text-transform: uppercase;
+      padding: 4px 16px; border-radius: 999px;
+    }
+    .pricing-card__name { font-size: 14px; font-weight: 600; color: var(--gray); margin-bottom: 8px; }
+    .pricing-card__price {
+      display: flex; align-items: baseline; gap: 4px;
+      margin-bottom: 6px;
+    }
+    .pricing-card__price .amount { font-size: 40px; font-weight: 800; color: var(--black); }
+    .pricing-card__price .currency { font-size: 16px; font-weight: 600; color: var(--gray); }
+    .pricing-card__period { font-size: 13px; color: var(--gray-light); margin-bottom: 24px; }
+    .pricing-divider { height: 1px; background: var(--border); margin: 24px 0; }
+    .pricing-features { list-style: none; margin-bottom: 28px; }
+    .pricing-features li {
+      font-size: 14px; color: var(--gray);
+      padding: 7px 0;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .pricing-features li .check {
+      width: 20px; height: 20px;
+      background: var(--green-light);
+      color: var(--green);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px; font-weight: 700;
+      flex-shrink: 0;
+    }
+    .pricing-features li .dash {
+      width: 20px; height: 20px;
+      background: var(--bg-card);
+      color: var(--gray-light);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+
+    /* ─── Contact ─── */
+    #contact { background: #fff; }
+    .contact__inner {
+      display: grid;
+      grid-template-columns: 1fr 1.3fr;
+      gap: 64px;
+      align-items: start;
+    }
+    .contact__info h2 { font-size: 32px; margin-bottom: 16px; }
+    .contact__info p { font-size: 16px; margin-bottom: 32px; }
+    .contact-item {
+      display: flex; align-items: center; gap: 14px;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .contact-item:last-child { border-bottom: none; }
+    .contact-item__icon {
+      width: 40px; height: 40px;
+      background: var(--bg-card);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+    .contact-item__label { font-size: 12px; color: var(--gray-light); margin-bottom: 2px; }
+    .contact-item__val { font-size: 15px; font-weight: 600; color: var(--black); }
+
+    /* Form */
+    .contact-form {
+      background: var(--bg-soft);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 36px;
+    }
+    .contact-form h3 { font-size: 20px; margin-bottom: 24px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .form-group { margin-bottom: 18px; }
+    .form-group label {
+      display: block;
+      font-size: 13px; font-weight: 600;
+      color: var(--gray-dark);
+      margin-bottom: 6px;
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 14px;
+      font-family: inherit;
+      background: #fff;
+      color: var(--black);
+      outline: none;
+      transition: border-color .2s;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--black);
+      box-shadow: 0 0 0 3px rgba(25,25,25,0.07);
+    }
+    .form-group textarea { resize: vertical; min-height: 100px; }
+
+    /* ─── Footer ─── */
+    footer {
+      background: var(--black);
+      color: #fff;
+      padding: 64px 0 32px;
+    }
+    .footer__inner {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 48px;
+      margin-bottom: 48px;
+    }
+    .footer__brand { }
+    .footer__logo {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 17px; font-weight: 700;
+      margin-bottom: 16px;
+    }
+    .footer__logo-icon {
+      width: 32px; height: 32px;
+      background: #fff;
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--black); font-size: 15px;
+    }
+    .footer__desc { font-size: 14px; color: #9ca3af; line-height: 1.7; }
+    .footer__col h5 {
+      font-size: 13px; font-weight: 700;
+      letter-spacing: .08em; text-transform: uppercase;
+      color: #9ca3af;
+      margin-bottom: 16px;
+    }
+    .footer__col ul { list-style: none; }
+    .footer__col ul li { margin-bottom: 10px; }
+    .footer__col ul li a { font-size: 14px; color: #e5e7eb; transition: color .15s; }
+    .footer__col ul li a:hover { color: #fff; }
+    .footer__bottom {
+      border-top: 1px solid #374151;
+      padding-top: 24px;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .footer__bottom p { font-size: 13px; color: #6b7280; }
+
+    /* ─── Responsive ─── */
+    @media (max-width: 900px) {
+      .hero__inner, .about__inner, .contact__inner {
+        grid-template-columns: 1fr;
+      }
+      .hero__visual { display: none; }
+      .pricing__grid { grid-template-columns: 1fr 1fr; }
+      .footer__inner { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 600px) {
+      section { padding: 64px 0; }
+      .pricing__grid { grid-template-columns: 1fr; }
+      .footer__inner { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+      .navbar__nav, .navbar__cta { display: none; }
+    }
+
+    /* ─── Animations ─── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .fadeup { animation: fadeUp .6s ease both; }
+    .delay-1 { animation-delay: .1s; }
+    .delay-2 { animation-delay: .2s; }
+    .delay-3 { animation-delay: .3s; }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════ NAVBAR ═══════════════════ -->
+<nav class="navbar">
+  <div class="navbar__inner">
+    <a href="#" class="navbar__logo">
+      <div class="navbar__logo-icon">⚗</div>
+      Made on Notion
+    </a>
+    <ul class="navbar__nav">
+      <li><a href="#about">เกี่ยวกับเรา</a></li>
+      <li><a href="#courses">วิชา</a></li>
+      <li><a href="#pricing">ราคา</a></li>
+      <li><a href="#contact">ติดต่อ</a></li>
+    </ul>
+    <div class="navbar__cta">
+      <a href="#contact" class="btn btn-outline">สมัครเรียน</a>
+      <a href="https://line.me" class="btn btn-primary">LINE</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ═══════════════════ HERO ═══════════════════ -->
+<section class="hero" id="home">
+  <div class="container">
+    <div class="hero__inner">
+      <div class="hero__content fadeup">
+        <div class="hero__eyebrow">
+          <div class="hero__dot"></div>
+          <span>รับนักเรียนแล้ววันนี้ · Now Enrolling</span>
+        </div>
+        <h1 class="hero__title">
+          เรียน <span class="accent-chem">เคมี</span> &<br/>
+          <span class="accent-phys">ฟิสิกส์</span><br/>
+          ให้เข้าใจจริง
+        </h1>
+        <p class="hero__subtitle">
+          สอนตัวต่อตัวและกลุ่มเล็ก เน้นเข้าใจแก่นแท้<br/>
+          ไม่ท่องจำ · <em>Real understanding, not memorization.</em>
+        </p>
+        <div class="hero__actions">
+          <a href="#contact" class="btn btn-primary">สมัครเรียนฟรีครั้งแรก →</a>
+          <a href="#courses" class="btn btn-outline">ดูหลักสูตร</a>
+        </div>
+        <div class="hero__stats">
+          <div>
+            <div class="hero__stat-num">200+</div>
+            <div class="hero__stat-label">นักเรียน</div>
+          </div>
+          <div>
+            <div class="hero__stat-num">95%</div>
+            <div class="hero__stat-label">คะแนนเพิ่มขึ้น</div>
+          </div>
+          <div>
+            <div class="hero__stat-num">5+</div>
+            <div class="hero__stat-label">ปีประสบการณ์</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Notion-style visual -->
+      <div class="hero__visual fadeup delay-2">
+        <div class="notion-floating">
+          <div class="notion-floating__label">คะแนนสอบเฉลี่ย</div>
+          <div class="notion-floating__val">+34%</div>
+        </div>
+
+        <div class="notion-block">
+          <div class="notion-block__header">
+            <div class="notion-block__icon icon-chem">⚗️</div>
+            <div>
+              <div class="notion-block__title">Chemistry — เคมี</div>
+              <div class="notion-block__subtitle">ม.4–6 · PAT2 · O-NET</div>
+            </div>
+          </div>
+          <div class="notion-block__tags">
+            <span class="notion-mini-tag">อะตอม & อิเล็กตรอน</span>
+            <span class="notion-mini-tag">สมดุลเคมี</span>
+            <span class="notion-mini-tag">กรด-เบส</span>
+            <span class="notion-mini-tag">อินทรีย์เคมี</span>
+          </div>
+          <div class="progress-bar"><div class="progress-fill fill-chem"></div></div>
+        </div>
+
+        <div class="notion-block">
+          <div class="notion-block__header">
+            <div class="notion-block__icon icon-phys">⚡</div>
+            <div>
+              <div class="notion-block__title">Physics — ฟิสิกส์</div>
+              <div class="notion-block__subtitle">ม.4–6 · PAT2 · O-NET</div>
+            </div>
+          </div>
+          <div class="notion-block__tags">
+            <span class="notion-mini-tag">กลศาสตร์</span>
+            <span class="notion-mini-tag">ไฟฟ้า-แม่เหล็ก</span>
+            <span class="notion-mini-tag">คลื่นและแสง</span>
+            <span class="notion-mini-tag">ฟิสิกส์อนุภาค</span>
+          </div>
+          <div class="progress-bar"><div class="progress-fill fill-phys"></div></div>
+        </div>
+
+        <div class="notion-block" style="display:flex;align-items:center;gap:14px;padding:16px 24px;">
+          <span style="font-size:24px;">📓</span>
+          <div>
+            <div style="font-size:14px;font-weight:600;color:var(--black);">Notion Notes แจกทุกบท</div>
+            <div style="font-size:12px;color:var(--gray-light);">เอกสารสรุป · แบบฝึกหัด · เฉลยละเอียด</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ ABOUT ═══════════════════ -->
+<section id="about">
+  <div class="container">
+    <div class="about__inner">
+      <div>
+        <p class="section-label">About Us · เกี่ยวกับเรา</p>
+        <h2 style="font-size:clamp(28px,4vw,42px);margin-bottom:16px;">
+          สอนให้เข้าใจ<br/>ไม่ใช่แค่ผ่านสอบ
+        </h2>
+        <div class="divider"></div>
+        <p style="font-size:16px;margin-bottom:20px;">
+          <strong>Made on Notion</strong> คือสถาบันติวเตอร์เฉพาะทางด้าน <strong>เคมีและฟิสิกส์</strong>
+          ระดับมัธยมปลาย ที่เชื่อว่าการเรียนที่ดีต้องสร้างความเข้าใจจากรากฐาน
+          ไม่ใช่การท่องจำสูตร
+        </p>
+        <p style="font-size:16px;margin-bottom:20px;">
+          เราใช้ <strong>Notion</strong> เป็นศูนย์กลางการเรียน — นักเรียนทุกคนจะได้รับ
+          เอกสารประกอบ, Mind Map, แบบฝึกหัด และเฉลยอย่างละเอียดในรูปแบบดิจิทัล
+        </p>
+        <p style="font-size:15px;color:var(--gray-light);font-style:italic;">
+          "We teach chemistry and physics for true understanding — not just to pass exams."
+        </p>
+      </div>
+      <div class="about__cards">
+        <div class="about-card">
+          <div class="about-card__icon" style="background:var(--accent-chem-light);">🎯</div>
+          <h4>เน้นเนื้อหาจริง</h4>
+          <p>สอนตรงประเด็นที่ออกสอบ PAT2, O-NET, TCAS</p>
+        </div>
+        <div class="about-card">
+          <div class="about-card__icon" style="background:var(--accent-phys-light);">👥</div>
+          <h4>กลุ่มเล็ก ≤ 6 คน</h4>
+          <p>ดูแลทั่วถึง ถามตอบได้ทันที ไม่ตกหล่น</p>
+        </div>
+        <div class="about-card">
+          <div class="about-card__icon" style="background:var(--green-light);">📓</div>
+          <h4>Notion Notes</h4>
+          <p>เอกสารดิจิทัลครบชุด เข้าถึงได้ตลอดชีพ</p>
+        </div>
+        <div class="about-card">
+          <div class="about-card__icon" style="background:#f3e8ff;">🧪</div>
+          <h4>Workshop จริง</h4>
+          <p>ทดลองโจทย์จากข้อสอบจริงทุกบทเรียน</p>
+        </div>
+        <div class="about-card about-card--wide">
+          <span style="font-size:28px;">🏆</span>
+          <div>
+            <h4 style="margin-bottom:4px;">นักเรียนสอบติด มหาวิทยาลัยชั้นนำ</h4>
+            <p style="font-size:13px;">จุฬาฯ · มหิดล · เกษตร · ธรรมศาสตร์ และสถาบันชั้นนำอีกมากมาย</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ COURSES ═══════════════════ -->
+<section id="courses">
+  <div class="container">
+    <p class="section-label">Courses · หลักสูตร</p>
+    <h2 style="font-size:clamp(28px,4vw,40px);">วิชาที่เปิดสอน</h2>
+    <p style="max-width:560px;margin-top:12px;">
+      ครอบคลุมทั้ง <strong>เคมี</strong> และ <strong>ฟิสิกส์</strong> ตั้งแต่พื้นฐานถึงระดับโอลิมปิก
+    </p>
+    <div class="courses__grid">
+
+      <!-- Chemistry -->
+      <div class="course-card">
+        <div class="course-card__banner banner-chem"></div>
+        <div class="course-card__body">
+          <div class="course-card__icon icon-chem" style="width:52px;height:52px;font-size:26px;">⚗️</div>
+          <div class="tag tag--blue">Chemistry · เคมี</div>
+          <h3>เคมีมัธยมปลาย</h3>
+          <p class="desc">
+            ตั้งแต่โครงสร้างอะตอมไปจนถึงเคมีอินทรีย์ สอนแบบ concept-first
+            เข้าใจหลักการก่อน แล้วค่อยฝึกโจทย์ปริมาณมาก
+          </p>
+          <ul class="course-topics topic-chem">
+            <li>โครงสร้างอะตอมและตารางธาตุ</li>
+            <li>พันธะเคมีและสมบัติสาร</li>
+            <li>สมดุลเคมีและอัตราการเกิดปฏิกิริยา</li>
+            <li>กรด-เบสและอิเล็กโทรลีต</li>
+            <li>เคมีอินทรีย์และพอลิเมอร์</li>
+            <li>เคมีไฟฟ้าและอิเล็กโทรไลซิส</li>
+          </ul>
+        </div>
+        <div class="course-card__footer">
+          <div class="course-card__meta">ระดับ: <span>ม.4–6</span> · PAT2 · O-NET</div>
+          <a href="#contact" class="btn btn-chem" style="padding:8px 16px;font-size:13px;">สมัครเรียน</a>
+        </div>
+      </div>
+
+      <!-- Physics -->
+      <div class="course-card">
+        <div class="course-card__banner banner-phys"></div>
+        <div class="course-card__body">
+          <div class="course-card__icon icon-phys" style="width:52px;height:52px;font-size:26px;">⚡</div>
+          <div class="tag tag--orange">Physics · ฟิสิกส์</div>
+          <h3>ฟิสิกส์มัธยมปลาย</h3>
+          <p class="desc">
+            เรียนฟิสิกส์แบบเข้าใจกฎธรรมชาติ ไม่ใช่ท่องสูตร
+            เชื่อมโยงคณิตศาสตร์เข้ากับแนวคิดทางกายภาพ
+          </p>
+          <ul class="course-topics topic-phys">
+            <li>การเคลื่อนที่และกลศาสตร์นิวตัน</li>
+            <li>งาน พลังงาน และโมเมนตัม</li>
+            <li>ไฟฟ้าสถิตและวงจรไฟฟ้า</li>
+            <li>แม่เหล็กไฟฟ้าและคลื่นแม่เหล็ก</li>
+            <li>คลื่นกล เสียง แสง และออปติกส์</li>
+            <li>ฟิสิกส์อะตอมและนิวเคลียร์</li>
+          </ul>
+        </div>
+        <div class="course-card__footer">
+          <div class="course-card__meta">ระดับ: <span>ม.4–6</span> · PAT2 · O-NET</div>
+          <a href="#contact" class="btn btn-phys" style="padding:8px 16px;font-size:13px;">สมัครเรียน</a>
+        </div>
+      </div>
+
+      <!-- Bundle -->
+      <div class="course-card" style="border-color:var(--black);grid-column:1/-1;">
+        <div class="course-card__banner" style="background:linear-gradient(90deg,var(--accent-chem),var(--accent-phys));"></div>
+        <div class="course-card__body">
+          <div class="tag tag--gray">⭐ Best Value · แนะนำ</div>
+          <h3>แพ็กเกจ เคมี + ฟิสิกส์</h3>
+          <p class="desc">
+            เรียนทั้งสองวิชาในราคาพิเศษ เหมาะสำหรับนักเรียนที่ต้องการเตรียมสอบ PAT2
+            หรือ TCAS สาขาวิทยาศาสตร์อย่างครบถ้วน พร้อมเอกสาร Notion ครบชุดทั้งสองวิชา
+          </p>
+          <div style="display:flex;gap:32px;flex-wrap:wrap;">
+            <div style="display:flex;align-items:center;gap:8px;font-size:14px;">
+              <span style="color:var(--green);font-weight:700;">✓</span> เนื้อหาครบทั้งสองวิชา
+            </div>
+            <div style="display:flex;align-items:center;gap:8px;font-size:14px;">
+              <span style="color:var(--green);font-weight:700;">✓</span> โจทย์ข้อสอบเก่าครบชุด
+            </div>
+            <div style="display:flex;align-items:center;gap:8px;font-size:14px;">
+              <span style="color:var(--green);font-weight:700;">✓</span> Mock Exam ก่อนสอบจริง
+            </div>
+            <div style="display:flex;align-items:center;gap:8px;font-size:14px;">
+              <span style="color:var(--green);font-weight:700;">✓</span> ถาม-ตอบนอกเวลาเรียน
+            </div>
+          </div>
+        </div>
+        <div class="course-card__footer" style="background:#f9f9f8;">
+          <div class="course-card__meta">ประหยัดกว่า <span>20%</span> เมื่อเรียนคู่</div>
+          <a href="#pricing" class="btn btn-primary" style="padding:8px 18px;font-size:13px;">ดูราคา →</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ PRICING ═══════════════════ -->
+<section id="pricing">
+  <div class="container">
+    <p class="section-label">Pricing · ราคา</p>
+    <h2 style="font-size:clamp(28px,4vw,40px);">เลือกแผนที่เหมาะกับคุณ</h2>
+    <p style="max-width:500px;margin-top:12px;">
+      ทดลองเรียนฟรีครั้งแรก ไม่มีข้อผูกมัด
+    </p>
+    <div class="pricing__grid">
+
+      <!-- Basic -->
+      <div class="pricing-card">
+        <div class="pricing-card__name">Basic · เดี่ยว</div>
+        <div class="pricing-card__price">
+          <span class="currency">฿</span>
+          <span class="amount">500</span>
+        </div>
+        <div class="pricing-card__period">ต่อชั่วโมง · per hour (1 วิชา)</div>
+        <div class="pricing-divider"></div>
+        <ul class="pricing-features">
+          <li><span class="check">✓</span> เรียนตัวต่อตัว 1:1</li>
+          <li><span class="check">✓</span> Notion Notes ประจำบท</li>
+          <li><span class="check">✓</span> แบบฝึกหัดพร้อมเฉลย</li>
+          <li><span class="dash">—</span> Mock Exam</li>
+          <li><span class="dash">—</span> Line ถาม-ตอบตลอด 24 ชม.</li>
+        </ul>
+        <a href="#contact" class="btn btn-outline" style="width:100%;justify-content:center;">สมัครเรียน</a>
+      </div>
+
+      <!-- Pro (Featured) -->
+      <div class="pricing-card pricing-card--featured">
+        <div class="pricing-card__badge">ยอดนิยม</div>
+        <div class="pricing-card__name">Pro · กลุ่ม</div>
+        <div class="pricing-card__price">
+          <span class="currency">฿</span>
+          <span class="amount">300</span>
+        </div>
+        <div class="pricing-card__period">ต่อชั่วโมง/คน · กลุ่ม 3–6 คน (1 วิชา)</div>
+        <div class="pricing-divider"></div>
+        <ul class="pricing-features">
+          <li><span class="check">✓</span> เรียนกลุ่มเล็ก ≤ 6 คน</li>
+          <li><span class="check">✓</span> Notion Notes ครบชุด</li>
+          <li><span class="check">✓</span> แบบฝึกหัดพร้อมเฉลย</li>
+          <li><span class="check">✓</span> Mock Exam รายเดือน</li>
+          <li><span class="check">✓</span> Line ถาม-ตอบตลอด 24 ชม.</li>
+        </ul>
+        <a href="#contact" class="btn btn-primary" style="width:100%;justify-content:center;">สมัครเรียน</a>
+      </div>
+
+      <!-- Bundle -->
+      <div class="pricing-card">
+        <div class="pricing-card__name">Bundle · สองวิชา</div>
+        <div class="pricing-card__price">
+          <span class="currency">฿</span>
+          <span class="amount">480</span>
+        </div>
+        <div class="pricing-card__period">ต่อชั่วโมง/คน · เคมี + ฟิสิกส์</div>
+        <div class="pricing-divider"></div>
+        <ul class="pricing-features">
+          <li><span class="check">✓</span> ทั้งเคมีและฟิสิกส์</li>
+          <li><span class="check">✓</span> Notion Notes ทั้ง 2 วิชา</li>
+          <li><span class="check">✓</span> แบบฝึกหัดพร้อมเฉลย</li>
+          <li><span class="check">✓</span> Mock Exam รายเดือน</li>
+          <li><span class="check">✓</span> Line ถาม-ตอบตลอด 24 ชม.</li>
+        </ul>
+        <a href="#contact" class="btn btn-outline" style="width:100%;justify-content:center;">สมัครเรียน</a>
+      </div>
+
+    </div>
+    <p style="text-align:center;margin-top:24px;font-size:14px;color:var(--gray-light);">
+      💡 ทดลองเรียนฟรีครั้งแรก · First class free · ไม่มีข้อผูกมัด
+    </p>
+  </div>
+</section>
+
+<!-- ═══════════════════ CONTACT ═══════════════════ -->
+<section id="contact">
+  <div class="container">
+    <div class="contact__inner">
+      <div class="contact__info">
+        <p class="section-label">Contact · ติดต่อ</p>
+        <h2>พร้อมเริ่มเรียน<br/>แล้วหรือยัง?</h2>
+        <div class="divider"></div>
+        <p>ส่งข้อมูลมาได้เลย เราจะติดต่อกลับภายใน 24 ชั่วโมง
+          หรือจะทักมาได้โดยตรงผ่าน LINE ก็ได้เลย!</p>
+
+        <div style="margin-top:32px;">
+          <div class="contact-item">
+            <div class="contact-item__icon">📞</div>
+            <div>
+              <div class="contact-item__label">โทรศัพท์</div>
+              <div class="contact-item__val">086-XXX-XXXX</div>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-item__icon">💬</div>
+            <div>
+              <div class="contact-item__label">LINE ID</div>
+              <div class="contact-item__val">@madeonnotion</div>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-item__icon">✉️</div>
+            <div>
+              <div class="contact-item__label">อีเมล</div>
+              <div class="contact-item__val">hello@madeonnotion.com</div>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-item__icon">📍</div>
+            <div>
+              <div class="contact-item__label">สถานที่ / รูปแบบ</div>
+              <div class="contact-item__val">Online · On-site (กรุงเทพฯ)</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-form">
+        <h3>สมัครเรียน / สอบถาม</h3>
+        <div class="form-row">
+          <div class="form-group">
+            <label>ชื่อ-นามสกุล *</label>
+            <input type="text" placeholder="ชื่อของคุณ" />
+          </div>
+          <div class="form-group">
+            <label>เบอร์โทร / LINE *</label>
+            <input type="text" placeholder="086-XXX-XXXX" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label>อีเมล</label>
+          <input type="email" placeholder="your@email.com" />
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>วิชาที่สนใจ *</label>
+            <select>
+              <option value="">เลือกวิชา...</option>
+              <option>เคมี (Chemistry)</option>
+              <option>ฟิสิกส์ (Physics)</option>
+              <option>เคมี + ฟิสิกส์ (Bundle)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>ระดับชั้น *</label>
+            <select>
+              <option value="">เลือกระดับ...</option>
+              <option>ม.4</option>
+              <option>ม.5</option>
+              <option>ม.6</option>
+              <option>อื่นๆ</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>รูปแบบที่สนใจ</label>
+          <select>
+            <option>เรียนกลุ่ม (ราคาถูกกว่า)</option>
+            <option>เรียนตัวต่อตัว</option>
+            <option>Online</option>
+            <option>On-site (กรุงเทพฯ)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>ข้อความเพิ่มเติม</label>
+          <textarea placeholder="เช่น ต้องการเตรียมสอบ PAT2, จุดอ่อนคือเรื่อง..."></textarea>
+        </div>
+        <button class="btn btn-primary" style="width:100%;justify-content:center;font-size:16px;padding:14px;">
+          ส่งข้อมูลสมัครเรียน →
+        </button>
+        <p style="text-align:center;margin-top:12px;font-size:12px;color:var(--gray-light);">
+          ทดลองเรียนฟรีครั้งแรก · ไม่มีข้อผูกมัด
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════ FOOTER ═══════════════════ -->
+<footer>
+  <div class="container">
+    <div class="footer__inner">
+      <div class="footer__brand">
+        <div class="footer__logo">
+          <div class="footer__logo-icon">⚗</div>
+          Made on Notion
+        </div>
+        <p class="footer__desc">
+          สถาบันสอนพิเศษเคมีและฟิสิกส์ เน้นความเข้าใจจากรากฐาน<br/>
+          ด้วยระบบการเรียนรู้ผ่าน Notion
+        </p>
+        <p class="footer__desc" style="margin-top:8px;font-style:italic;">
+          "Real understanding, not memorization."
+        </p>
+      </div>
+      <div class="footer__col">
+        <h5>วิชา</h5>
+        <ul>
+          <li><a href="#courses">เคมีมัธยมปลาย</a></li>
+          <li><a href="#courses">ฟิสิกส์มัธยมปลาย</a></li>
+          <li><a href="#courses">แพ็กเกจสองวิชา</a></li>
+          <li><a href="#pricing">ราคาและแผน</a></li>
+        </ul>
+      </div>
+      <div class="footer__col">
+        <h5>ข้อมูล</h5>
+        <ul>
+          <li><a href="#about">เกี่ยวกับเรา</a></li>
+          <li><a href="#contact">ติดต่อเรา</a></li>
+          <li><a href="#contact">สมัครเรียน</a></li>
+          <li><a href="#">บทความ</a></li>
+        </ul>
+      </div>
+      <div class="footer__col">
+        <h5>ติดต่อ</h5>
+        <ul>
+          <li><a href="#">LINE: @madeonnotion</a></li>
+          <li><a href="#">Facebook</a></li>
+          <li><a href="#">Instagram</a></li>
+          <li><a href="#">hello@madeonnotion.com</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <p>© 2026 Made on Notion. สงวนลิขสิทธิ์.</p>
+      <p>Chemistry & Physics · Bangkok, Thailand</p>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
